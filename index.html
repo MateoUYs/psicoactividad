@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Desafío de la Motivación: experiencia interactiva para reflexionar sobre teorías motivacionales en contextos educativos."
+    />
+    <title>Desafío de la Motivación</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <canvas id="particles" aria-hidden="true"></canvas>
+    <main class="app-shell">
+      <section class="panel visible" id="start-screen" aria-labelledby="main-title">
+        <div class="card card-lg entrance">
+          <span class="eyebrow">Psicología de la Educación</span>
+          <h1 id="main-title">Desafío de la Motivación</h1>
+          <p class="subtitle">
+            ¿Podrías identificar qué teoría de la motivación explica mejor cada situación
+            educativa?
+          </p>
+          <button id="start-btn" class="primary-btn">Comenzar desafio</button>
+          <p class="intro-copy">
+            A lo largo de esta actividad deberás analizar situaciones reales de aula y
+            decidir qué concepto o perspectiva de la motivación está más presente en cada
+            caso.
+          </p>
+        </div>
+        <footer class="credits entrance-delay">
+          Proyecto realizado por Valeria Rodríguez, Maria Noel Della Valle, Ivana Martínez y
+          Mateo Indart.
+        </footer>
+      </section>
+
+      <section class="panel" id="quiz-screen" aria-live="polite" aria-labelledby="question-title">
+        <div class="card">
+          <div class="quiz-top">
+            <div>
+              <p class="question-step" id="question-step">Pregunta 1 de 5</p>
+              <h2 id="question-title">Situación educativa</h2>
+            </div>
+            <label class="sound-toggle" for="sound-switch">
+              <input id="sound-switch" type="checkbox" />
+              <span>Sonido</span>
+            </label>
+          </div>
+
+          <div class="progress-wrap" aria-hidden="true">
+            <div id="progress-bar" class="progress-bar"></div>
+          </div>
+
+          <article class="scenario" id="scenario-text"></article>
+          <div id="options" class="options-grid" role="group" aria-label="Opciones de respuesta"></div>
+
+          <div id="feedback" class="feedback" hidden>
+            <h3 id="feedback-title"></h3>
+            <p id="feedback-text"></p>
+            <button id="next-btn" class="secondary-btn">Siguiente situación</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" id="result-screen" aria-labelledby="result-title">
+        <div class="card card-lg">
+          <div class="score-orb" id="score-orb"></div>
+          <h2 id="result-title"></h2>
+          <p id="result-message" class="result-message"></p>
+
+          <div id="word-cloud" class="word-cloud" aria-hidden="true"></div>
+          <p class="quote">
+            "La motivación no depende solamente del estudiante, sino también de las
+            condiciones que generamos para aprender."
+          </p>
+
+          <button id="restart-btn" class="primary-btn">Volver a intentarlo</button>
+        </div>
+        <footer class="credits">
+          Proyecto realizado por Valeria Rodríguez, Maria Noel Della Valle, Ivana Martínez y
+          Mateo Indart.
+        </footer>
+      </section>
+    </main>
+    <script src="./script.js"></script>
+  </body>
+</html>
