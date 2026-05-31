@@ -198,20 +198,58 @@ function buildWordCloud() {
   wordCloud.innerHTML = "";
   const width = wordCloud.clientWidth;
   const height = wordCloud.clientHeight;
+  const placed = [];
+  const isMobile = window.matchMedia("(max-width: 780px)").matches;
 
   WORDS.forEach((word, index) => {
     const span = document.createElement("span");
     span.className = "word";
     span.textContent = word;
-    const size = 0.9 + Math.random() * 1.05;
-    const x = Math.random() * (width - 120);
-    const y = Math.random() * (height - 40);
-    span.style.left = `${Math.max(8, x)}px`;
-    span.style.top = `${Math.max(8, y)}px`;
+    const size = isMobile ? 0.84 + Math.random() * 0.44 : 0.9 + Math.random() * 0.62;
     span.style.fontSize = `${size}rem`;
     span.style.animationDelay = `${index * 0.18}s`;
     span.style.color = index % 2 === 0 ? "var(--primary)" : "var(--text-soft)";
+
     wordCloud.appendChild(span);
+
+    const wordWidth = span.offsetWidth;
+    const wordHeight = span.offsetHeight;
+    const maxX = Math.max(8, width - wordWidth - 8);
+    const maxY = Math.max(8, height - wordHeight - 8);
+
+    let x = 8;
+    let y = 8;
+    let foundSpot = false;
+
+    for (let attempt = 0; attempt < 120; attempt += 1) {
+      const tryX = 8 + Math.random() * (maxX - 8);
+      const tryY = 8 + Math.random() * (maxY - 8);
+      const overlaps = placed.some((box) => {
+        const gap = isMobile ? 5 : 8;
+        return !(
+          tryX + wordWidth + gap < box.x ||
+          tryX > box.x + box.w + gap ||
+          tryY + wordHeight + gap < box.y ||
+          tryY > box.y + box.h + gap
+        );
+      });
+
+      if (!overlaps) {
+        x = tryX;
+        y = tryY;
+        foundSpot = true;
+        break;
+      }
+    }
+
+    if (!foundSpot) {
+      x = 8 + ((index * 67) % Math.max(1, maxX - 8));
+      y = 8 + ((index * 41) % Math.max(1, maxY - 8));
+    }
+
+    span.style.left = `${x}px`;
+    span.style.top = `${y}px`;
+    placed.push({ x, y, w: wordWidth, h: wordHeight });
   });
 }
 
