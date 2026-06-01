@@ -97,6 +97,9 @@ const progressBar = document.getElementById("progress-bar");
 const resultTitle = document.getElementById("result-title");
 const resultMessage = document.getElementById("result-message");
 const scoreOrb = document.getElementById("score-orb");
+const resultChip = document.getElementById("result-chip");
+const scoreFill = document.getElementById("score-fill");
+const scoreLabel = document.getElementById("score-label");
 const wordCloud = document.getElementById("word-cloud");
 const soundSwitch = document.getElementById("sound-switch");
 
@@ -172,23 +175,31 @@ function showResult() {
   const max = QUESTIONS.length;
   const ratio = score / max;
   scoreOrb.textContent = `${score}/${max}`;
+  scoreFill.style.width = `${ratio * 100}%`;
+  scoreLabel.textContent = `${Math.round(ratio * 100)}% de respuestas correctas`;
 
   if (score === max) {
+    resultChip.textContent = "Nivel destacado";
     resultTitle.textContent = "Especialista en Motivación";
     resultMessage.textContent =
       "Lograste identificar correctamente los principales conceptos trabajados durante la presentación.";
     scoreOrb.style.background = "linear-gradient(140deg, #00a38f, #3cd9bd)";
+    scoreFill.style.background = "linear-gradient(90deg, #15c3a3, #6df2d4)";
     launchConfetti();
   } else if (score >= 3) {
+    resultChip.textContent = "Buen progreso";
     resultTitle.textContent = "Buen análisis";
     resultMessage.textContent =
       "Comprendés gran parte de las teorías de la motivación. Seguí explorando cómo se relacionan con la práctica docente.";
     scoreOrb.style.background = "linear-gradient(140deg, #1f6feb, #6bb5ff)";
+    scoreFill.style.background = "linear-gradient(90deg, #2b7bff, #73b8ff)";
   } else {
+    resultChip.textContent = "En construcción";
     resultTitle.textContent = "Seguí reflexionando";
     resultMessage.textContent =
       "La motivación es un fenómeno complejo. Revisar los distintos enfoques ayuda a comprender mejor las situaciones educativas.";
     scoreOrb.style.background = "linear-gradient(140deg, #d36a4f, #ff9b7d)";
+    scoreFill.style.background = "linear-gradient(90deg, #e07a5f, #ffb08f)";
   }
 
   buildWordCloud();
